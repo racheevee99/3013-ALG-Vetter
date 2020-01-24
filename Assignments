@@ -1,5 +1,0 @@
-## Assignments
-
-| Number | Folder | Description |
-| :----: | ------ | ----------- |
-|        |        |             |
