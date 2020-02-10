@@ -35,7 +35,8 @@ private:
   int *A;           // pointer to array of int's
   int size;         // current max stack size
   int top;          // top of stack 
-  int maxSize;      // Keeps track of overall max stack size
+  int maxSize = 0;  // Keeps track of overall max stack size
+  int resize = 0;   //Keeps track of resizes
 
 public:
  /**
@@ -161,10 +162,11 @@ public:
   *      NULL
   */
   void Print(){
-    for(int i=0;i<=top;i++){
-      cout<<A[i]<<" ";
-    }
-    cout<<endl;
+    cout << "######################################################################\n"
+    << "\tAssignment 4 - Resizing the Stack\n\tCMPS 3013\n\tRachel Vetter\n\n"
+    << "\tMax Stack Size: " << maxSize << "\n\tEnd Stack Size: " << size <<
+    "\n\tStack Resized: " << resize << " times\n\n"
+    << "######################################################################";
   } 
 
  /**
@@ -221,7 +223,8 @@ public:
     size = newSize;             // save new size
 
     A = B;                      // reset array pointer
-
+    
+    resize++; 
   }
 
 /**
@@ -251,6 +254,7 @@ public:
 
     A = B;                      // reset array pointer
 
+    resize++;
   }
 
 };
@@ -266,7 +270,7 @@ int main() {
 	infile.open(infileName);
 
   ArrayStack stack;
-  int r = 0;
+  int r = 0, er = 0;
 
   while(infile >> r){
   if(r % 2 == 0){
@@ -277,13 +281,11 @@ int main() {
   }
   else
   {
-    stack.Pop();
+    er = stack.Pop();
+    if(er == -99){
+      cout<<"Pop failed"<<endl;
+    }
   }
-  }
-  
-    
-  for(int i=0;i<7;i++){
-    stack.Pop();
   }
 
   stack.Print();
