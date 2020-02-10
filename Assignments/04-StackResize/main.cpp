@@ -12,6 +12,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -33,6 +35,7 @@ private:
   int *A;           // pointer to array of int's
   int size;         // current max stack size
   int top;          // top of stack 
+  int maxSize;      // Keeps track of overall max stack size
 
 public:
  /**
@@ -48,7 +51,7 @@ public:
   *     - NULL
   */
   ArrayStack(){
-    size = 10;
+    size = maxSize = 10;
     A = new int[size];
     top = -1;
   }
@@ -66,7 +69,7 @@ public:
   *     - NULL
   */
   ArrayStack(int s){
-    size = s;
+    size = maxSize = s;
     A = new int[s];
     top = -1;
   }
@@ -178,10 +181,13 @@ public:
   */
   bool Push(int x){
     if(Full()){
-      Resize();
+      ContainerGrow();
     }
     if(!Full()){
       A[++top] = x;
+      size++;
+      if (size > maxSize){
+        maxSize = size;}
       return true;
     }
     
@@ -252,20 +258,36 @@ public:
 // MAIN DRIVER
 // Simple Array Based Stack Usage:
 int main() {
+  ifstream infile;
+
+  char infileName[40];
+	cout << "Please enter the input file name: ";
+	cin >> infileName;
+	infile.open(infileName);
+
   ArrayStack stack;
   int r = 0;
 
-  for(int i=0;i<20;i++){
-    r = rand() % 100;
-    r = i+1;
+  while(infile >> r){
+  if(r % 2 == 0){
+    stack.Push(r);
     if(!stack.Push(r)){
       cout<<"Push failed"<<endl;
     }
   }
-
+  else
+  {
+    stack.Pop();
+  }
+  }
+  
+    
   for(int i=0;i<7;i++){
     stack.Pop();
   }
 
   stack.Print();
+
+  //Close files
+	infile.close();
 }
