@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 //
 // Author:           Rachel Vetter
 // Email:            racheevee99@gmail.com
@@ -17,7 +17,7 @@
 
 using namespace std;
 
-/**
+/*
  * ArrayStack
  *
  * Description:
@@ -32,7 +32,7 @@ using namespace std;
  */
 class ArrayStack {
 private:
-    long int* A;           // pointer to array of int's
+    int* A;           // pointer to array of long int's
     int size;         // current max stack size
     int top;          // top of stack 
     int maxSize;  // Keeps track of overall max stack size
@@ -53,7 +53,7 @@ public:
      */
     ArrayStack() {
         size = maxSize = 10;
-        A = new long int[size];
+        A = new int[size];
         top = -1;
         resize = 0;
     }
@@ -72,7 +72,7 @@ public:
      */
     ArrayStack(int s) {
         size = maxSize = s;
-        A = new long int[s];
+        A = new int[s];
         top = -1;
         resize = 0;
     }
@@ -135,6 +135,7 @@ public:
      *
      * Description:
      *      Returns top value and removes it from stack
+     *      Shrinks stack if top is half of size
      *
      * Params:
      *      NULL
@@ -158,7 +159,7 @@ public:
      * Public void: Print
      *
      * Description:
-     *      Prints stack to standard out
+     *      Prints max size, size, and resize to standard out
      *
      * Params:
      *      NULL
@@ -179,6 +180,7 @@ public:
      *
      * Description:
      *      Adds an item to top of stack
+     *      calls ContainerGrow if stack is full
      *
      * Params:
      *      [int] : item to be added
@@ -190,9 +192,8 @@ public:
         if (Full()) {
             ContainerGrow();
         }
-        else{
+        else {
             A[++top] = x;
-            size++;
             if (size > maxSize) {
                 maxSize = size;
             }
@@ -207,8 +208,8 @@ public:
      * Public void: ContainerGrow
      *
      * Description:
-     *      Resizes the container for the stack by doubling
-     *      its capacity
+     *      Resizes the container for the stack by multiplying
+     *      its capacity by 1.75
      *
      * Params:
      *      NULL
@@ -218,7 +219,7 @@ public:
      */
     void ContainerGrow() {
         int newSize = size * 1.75;    // increases size of memmory by 1.75
-        long int* B = new long int[newSize];  // allocate new memory
+        int* B = new int[newSize];  // allocate new memory
 
         for (int i = 0; i < size; i++) {    // copy values to new array
             B[i] = A[i];
@@ -237,7 +238,7 @@ public:
       * Public void: ContainerShrink
       *
       * Description:
-      *      Resizes the container for the stack by doubling
+      *      Resizes the container for the stack by halfing
       *      its capacity
       *
       * Params:
@@ -248,7 +249,7 @@ public:
       */
     void ContainerShrink() {
         int newSize = size * 0.5;    // decreases size of memory by half
-        long int* B = new long int[newSize];  // allocate new memory
+        int* B = new int[newSize];  // allocate new memory
 
         for (int i = 0; i < size; i++) {    // copy values to new array
             B[i] = A[i];
@@ -276,11 +277,10 @@ int main() {
     infile.open(infileName);
 
     ArrayStack stack;
-    long int r = 0, er = 0;
+    int r = 0, er = 0;
 
     while (infile >> r) {
         if (r % 2 == 0) {
-            stack.Push(r);
             if (!stack.Push(r)) {
                 cout << "Push failed" << endl;
             }
