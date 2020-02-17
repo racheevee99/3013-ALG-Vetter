@@ -23,15 +23,17 @@ using namespace std;
  *          Heap        : default constructor
  *          Heap(int)   : overload constructor with heap size
  *      private:
- *          BubbleUp    : puts a value in its proper place in heap
+ *          BubbleUp    : puts a value in its proper place 
+ *                          by swapping it up th heap
  *          Left        : finds index of left child
  *          OnHeap      : checks if index is on heap
  *          Parent      : finds parent of an index
  *          Right       : finds index of right child
  *          Swap        : swaps 2 places in heap
  *          /// Fix These:
- *          SinkDown    : you comment this
- *          PickChild   : you comment this
+ *          SinkDown    : puts a value in its proper place 
+ *                          by swapping it down the heap
+ *          PickChild   : Picks smallest child, if there are children
  *      public:
  *          Insert      : inserts value in heap
  *          Print       : prints out heap 
@@ -178,10 +180,12 @@ private:
      * @return              : void 
      */
     void SinkDown(int index) {
-        while(index > size && H[index] > H[PickChild(index)]){
-            Swap(PickChild(index), index);
-        }
-
+        if (index >= 1){ 
+            while(index <=end && H[index] > H[PickChild(index)]){
+                Swap(index, PickChild(index));
+                index = PickChild(index);
+            }
+       }
     }
 
     /**
@@ -194,19 +198,21 @@ private:
      * @return              : index to child 
      */
     int PickChild(int index) {
-        if((index*2)+1 <= size)
+        //If there are 2 children, return smallest
+        if(Right(index) <= end)
         {
-            if (H[Left(index)] < H[Right(index)])
-            {
-                return Left(index);
-            }
-            else
+            if (H[Right(index)] < H[Left(index)])
             {
                 return Right(index);
             }
+            else
+            {
+                return Left(index);
+            }
             
         }
-        else if (index*2 <= size)
+        //Return left if only 1 child
+        else if (Left(index) <= end)
         {
             return Left(index);
         }
@@ -238,17 +244,36 @@ public:
     }
 
     /**
-   * Insert
+   * InsertAtEnd
    * 
    * @description:
-   *        Add a value to the heap.
+   *        Add a value to the end of the heap.
    * 
    * @param  {int} x : value to Insert
    * @return         : void
    */
-    void Insert(int x) {
+    void InsertAtEnd(int x) {
         H[end] = x;
         BubbleUp(end);
+        end++;
+    }
+
+    /**
+   * InsertAtFront
+   * 
+   * @description:
+   *        Add a value to the end of the heap.
+   * 
+   * @param  {int} x : value to Insert
+   * @return         : void
+   */
+    void InsertAtFront(int x) {
+        for (int i = end; i >= 1; i--)
+        {
+          H[i+1] = H[i];
+        }
+        H[1] = x;
+        SinkDown(1);
         end++;
     }
 
@@ -283,12 +308,18 @@ public:
 int main() {
     Heap H;
 
-    H.Insert(17);
-    H.Insert(11);
+    H.InsertAtEnd(17);
+    H.InsertAtEnd(11);
 
     for (int i = 1; i <= 10; i++) {
-        H.Insert(i);
+        H.InsertAtEnd(i);
     }
+H.Print();
+cout << "\n\n";
+
+  //Only made to test SinkDown
+   H.InsertAtFront(20);
+  H.InsertAtFront(12);
 
     H.Print();
 }
