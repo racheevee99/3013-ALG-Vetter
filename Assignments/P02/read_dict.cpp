@@ -39,11 +39,22 @@ int main()
     cout <<s << " seconds" <<endl;
     cout <<m << " milli" <<endl;
     int index = 0;                      // 
-    string key;                         // key variable to access json object
+    char k;
+    string key;                        // key variable to access json object
 
-    cin >> key;
-    
     vector<string> keys = J.getKeys();
+
+    while((k = getch()) != '.')
+    {
+        key += k;   //append char to key
+        for(int i =0; i < J.getSize(); i++)
+     {
+         if (key == keys.at(i))
+         {
+             cout << keys.at(i);
+         }
+     }
+    }
     
     cout<<keys.size()<<endl;
     index = rand() % keys.size();
