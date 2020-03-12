@@ -19,6 +19,7 @@
     **40 seconds**
 
 - Complexities : **O(1), O(n log n), O(n), O(n<sup>2</sup>), O(log n), O(n!) , O(h)**
+
 1.Finding the max element in an unordered stack would require _**n**_ operations?
 2. Finding the min element in an unordered queue would require __**n**__ operations?
 3. Finding some element in some Binary Search Tree would require __**at most n**__ operations?
