@@ -7,6 +7,11 @@
 
 - Suppose that the complexity of an algorithm is O(n<sup>2</sup>). Suppose that the program that uses the algorithm run in 10 seconds for a data set of size n. If the data size is doubled, how long will it take (approximately) to run the program? 
 
+    **n<sup>2</sup> = 10 seconds**
+    **(2n)<sup>2</sup>**
+    **4n<sup>2</sup>**
+    **4(10 seconds)**
+    **40 seconds**
 
 - Complexities : **O(1), O(n log n), O(n), O(n<sup>2</sup>), O(log n), O(n!) , O(h)**
 1.Finding the max element in an unordered stack would require _____________ operations?
