@@ -1,10 +1,13 @@
 ## Homework - Data Structures and Complexity
 #### Due: 03-13-2020 (Friday @ 3:30 p.m.)
+######Rachel Vetter
 
 - Given a collection of algorithms that runs on **O(1), O(n log n), O(n), O(n<sup>2</sup>), O(log n), O(n!)**, order the algorithms from fastest to slowest.
+     
      **O(1), O(log n), O(n), O(n log n), O(n<sup>2</sup>), O(n!)**
 
 - Suppose that the complexity of an algorithm is O(n<sup>2</sup>). Suppose that the program that uses the algorithm run in 10 seconds for a data set of size n. If the data size is doubled, how long will it take (approximately) to run the program? 
+    
     **n<sup>2</sup> = 10 seconds**
     
     **(2n)<sup>2</sup>**
@@ -53,6 +56,7 @@ for (int j = 1 ; j < n ; j *= 2)
 
 At most, how many comparisons are required to search a sorted vector of 1023 elements using the binary
 search algorithm?
+
 **log1024 = 10 operations**
 
 In each of the following examples, please choose the best data structure(s).
@@ -84,20 +88,3 @@ In each of the following examples, please choose the best data structure(s).
 12. To store an alphabetized list of names in order to look up quickly.
 **Array or Tree**
 
-
-## Deliverables
-
-- Edit this file and add your answers using markdown!
-- Create a folder called `H03` in your assignments folder.
-- Put a copy of your markdown file in this folder, and call it README.md.
-- Upload to github sometime close to the due date.
-- Print out your banner ON ITS OWN PAGE
-
-```
-H03
-3013
-LASTNAME
-```
-
-- Print out a hard copy of the file as well. Do not print directly from github. Either use `gitprint` or make it a pdf and print it.
-- Make sure you answer thoroughly using complexities where appropriate and/or explaining your choices etc.
