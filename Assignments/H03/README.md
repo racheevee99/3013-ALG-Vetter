@@ -1,5 +1,5 @@
 ## Homework - Data Structures and Complexity
-#### Rachel Vetter
+### Rachel Vetter
 
 - Given a collection of algorithms that runs on **O(1), O(n log n), O(n), O(n<sup>2</sup>), O(log n), O(n!)**, order the algorithms from fastest to slowest.
      
