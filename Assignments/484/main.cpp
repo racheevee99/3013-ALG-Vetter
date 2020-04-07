@@ -3,7 +3,7 @@
 // Author:           Rachel Vetter
 // Email:            racheevee99@gmail.com
 // Label:            484
-// Title:            
+// Title:            The Department of Redundancy Department
 // Course:           CMPS 3013
 // Semester:         Spring 2020
 //
@@ -12,17 +12,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
-#include <fstream>
 #include <map>
 
 using namespace std;
 
 
 int main() {
-  ifstream infile;
-  infile.open("input");
-
-    int n, a[100], c = 0;
+    int n, a[10000], c = 0;
     bool b;
     map<int,int> m;
     map<int,int>::iterator itr;
@@ -64,6 +60,5 @@ int main() {
         }
     }
 
-  infile.close();
   return 0;
 }

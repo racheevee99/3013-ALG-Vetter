@@ -20,15 +20,17 @@
 
 using namespace std;
 
-typedef vector<char> vi;    // vector of integers
+typedef vector<char> vi;    // vector of chars
 typedef pair<char, int> ii; // pair of integer and char
-typedef vector<ii> vii;    // vector of pairs
+typedef vector<ii> vii;     // vector of pairs
 
 const int VISITED = 1;
 const int UNVISITED = -1;
 
 vi been_visited;     // container to keep track of who get visited
 vector<vii> AdjList; // AdjList stores our edge lists
+vector<vii>::iterator itr1;
+vector<ii>::iterator itr2;
 
 /**
  * Depth First Search
@@ -44,7 +46,6 @@ void dfs(char u)
   // structure to keep track for us, we let the recursive calls do it for us
 
   been_visited[u] = VISITED; // mark u as visited
-  cout << u << " ";          // write u to stdout
 
   // Loop overadjacency list looking for connections
   for (int j = 0; j < (int)AdjList[u].size(); j++)
@@ -53,8 +54,6 @@ void dfs(char u)
     // v is a pair representing a neighbor and the
     // weight of the edge from u->v
     ii v = AdjList[u][j];
-
-    //cout << u << "->" << v.first << " with weight " << v.second << endl;
 
     // check to see if our neighbor was visited
     if (been_visited[v.first] == UNVISITED)
@@ -69,39 +68,45 @@ int main()
   ifstream infile;
   infile.open("input");
 
-  char n, u, v;
-
-  // vi been_visited;
-  // vector<vii> AdjList;
-
-  cin >> n;
-  
-
-  AdjList.resize(n + 1);
-  been_visited.resize(n + 1, UNVISITED);
-
-  for (int i = 0; i < m; i++)
-  {
-    cin >> u >> v;
-
-    // Here u is the start of the edge
-    // So u connects to v (or u->v)
-    // The 10 is a "weight" assigned to the edge
-    // 10 is just an arbitrary number
-    AdjList[u].push_back(make_pair(v, 10));
-  }
-
-  int n, mcs, size = 0;
-  char big;
-  string node;
-  bool visited = false;
+  int mcs = 0, n;
   cin >> n;
   for (int i = 0; i < n; i++)
   {
-    cin >> big;
+    char big, u, v;
+    bool b = false;
+    int n = 0;
 
-    cout << mcs << endl;
+    // vi been_visited;
+    // vector<vii> AdjList;
+    AdjList.resize(n + 1);
+    been_visited.resize(n + 1, UNVISITED);
+
+    cin >> big;
+    while (b == false && cin >> u >> v)
+    {
+      n++;
+      AdjList.resize(n);
+      been_visited.resize(n, UNVISITED);
+      //make new pair
+      AdjList[u].push_back(make_pair(v, 10));
+      if (u == big)
+      {
+        b = true;
+      }
+    }
+
+    for (int j = 0; j < (int)AdjList[u].size(); j++)
+    {
+      ii v = AdjList[u][j];
+      if (been_visited[v.first] == UNVISITED)
+      {
+        mcs++;
+        dfs(v.first);
+      }
+    }
   }
+
+  cout << mcs;
 
   infile.close();
   return 0;
