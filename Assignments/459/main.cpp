@@ -13,101 +13,106 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
-#include <fstream>
-#include <queue>
+#include <map>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-typedef vector<char> vi;    // vector of chars
-typedef pair<char, int> ii; // pair of integer and char
-typedef vector<ii> vii;     // vector of pairs
+typedef multimap<char, int> vis;    // vector of chars and ints for visits
+typedef multimap<char, char> graph; // pair of chars for connected nodes
 
 const int VISITED = 1;
 const int UNVISITED = -1;
 
-vi been_visited;     // container to keep track of who get visited
-vector<vii> AdjList; // AdjList stores our edge lists
-vector<vii>::iterator itr1;
-vector<ii>::iterator itr2;
+vis visited;  // container to keep track of who get visited
+graph AdjList;  // container to keep track of connections
 
-/**
- * Depth First Search
- * 
- * Params:
- *  char u - starting node id
- * 
- */
+
 void dfs(char u)
 {
+  //Iterators
+  vis::iterator itrv;
+  graph::iterator itrg;
+
   // In DFS we use a stack structure to keep track of who to visit next.
   // Recursive acts just like a stack so we dont need to declare any
   // structure to keep track for us, we let the recursive calls do it for us
-
-  been_visited[u] = VISITED; // mark u as visited
+  for(itrv = visited.begin(); itrv != visited.end(); itrv++)
+    {
+      if(itrv->first == u)
+      {
+        itrv->second = VISITED;// mark u as visited
+      }
+    } 
 
   // Loop overadjacency list looking for connections
-  for (int j = 0; j < (int)AdjList[u].size(); j++)
+  for(itrg = AdjList.begin(); itrg != AdjList.end(); itrg++)
   {
-
-    // v is a pair representing a neighbor and the
-    // weight of the edge from u->v
-    ii v = AdjList[u][j];
-
-    // check to see if our neighbor was visited
-    if (been_visited[v.first] == UNVISITED)
+    //Check all edges connected to u
+    if(itrg->first == u)
     {
-      dfs(v.first);
+      //Check if each edge is visited 
+      for(itrv = visited.begin(); itrv != visited.end(); itrv++)
+      {
+        if(itrv->first == itrg->second && itrv->second == UNVISITED)
+        {
+          //Check connecting edges if unvisited
+          dfs(itrv->first);
+        }
+      }
     }
-  }
+  } 
 }
 
 int main()
 {
-  ifstream infile;
-  infile.open("input");
+  int n, mcs;
+  char big = 'a', u, v;
+  string uv;
 
-  int mcs = 0, n;
   cin >> n;
   for (int i = 0; i < n; i++)
   {
-    char big, u, v;
-    bool b = false;
-    int n = 0;
+    mcs = 0;
 
-    // vi been_visited;
-    // vector<vii> AdjList;
-    AdjList.resize(n + 1);
-    been_visited.resize(n + 1, UNVISITED);
-
-    cin >> big;
-    while (b == false && cin >> u >> v)
+    //Read in first and largest edge 
+    if(big == 'a')
     {
-      n++;
-      AdjList.resize(n);
-      been_visited.resize(n, UNVISITED);
-      //make new pair
-      AdjList[u].push_back(make_pair(v, 10));
-      if (u == big)
-      {
-        b = true;
-      }
+      cin >> big;
+    }
+    for(char c = 'A'; c <= big; c++)
+    {
+      AdjList.insert(make_pair(c, c));
+      visited.insert(make_pair(c , UNVISITED));
     }
 
-    for (int j = 0; j < (int)AdjList[u].size(); j++)
+    while (cin >> uv && uv.length() > 1)
     {
-      ii v = AdjList[u][j];
-      if (been_visited[v.first] == UNVISITED)
-      {
-        mcs++;
-        dfs(v.first);
-      }
+      u = uv[0];
+      v = uv[1];
+      //make new pairs
+      AdjList.insert(make_pair(u, v));
+      AdjList.insert(make_pair(v, u));
+      //set all edges to unvisited
+      visited.insert(make_pair(u, UNVISITED));
+      visited.insert(make_pair(v, UNVISITED));
     }
+    big = uv[0];
+    //Find maximal connected subgraphs
+    for(vis::iterator itrv = visited.begin(); itrv != visited.end(); itrv++)
+    {
+      if(itrv->second == UNVISITED)
+       {
+         mcs++;
+         dfs(itrv->first);
+       }
+    }
+
+    //Display maximum connected subgraphs
+    cout << mcs << "\n\n";
+    AdjList.clear();
+    visited.clear();
   }
-
-  cout << mcs;
-
-  infile.close();
   return 0;
 }
