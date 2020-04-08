@@ -8,8 +8,7 @@
 // Semester:         Spring 2020
 //
 // Description:
-//       Using a singly linked list to store words and their definitions
-//      then searching through them as each character is entered.
+//       Using maps to find the maximum number of subgraphs in given graphs.
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
