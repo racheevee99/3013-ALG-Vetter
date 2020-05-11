@@ -1,6 +1,7 @@
 ## Assignments
 
 | Number | Folder       | Description                               |
+| :----: | ------------ | ----------------------------------------- |
 | A02    | Assignments  |  Commenting C++ Code                      |
 | P01    | Assignments  |  Resizing the stack                       |
 | 11172  | Assignments  |  Relational Operator                      |
