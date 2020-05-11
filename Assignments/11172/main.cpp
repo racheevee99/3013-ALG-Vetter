@@ -13,14 +13,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////////
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
 int main() {
-  ifstream infile;
-  infile.open("input");
-
   int t, a, b;
   cin >> t;
   for(int i = 0; i < t; i++)
@@ -33,7 +29,5 @@ int main() {
     else 
       cout << "=\n";
   }
-
-infile.close();
 return 0;
 }
