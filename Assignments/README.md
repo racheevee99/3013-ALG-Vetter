@@ -8,6 +8,7 @@
 | 11597  | Assignments  |  Spanning Subtree                         |
 | 459    | Assignments  |  Graph Connectivity                       |
 | 484    | Assignments  |  The Department of Redundancy Department  |
+| 10901  | Assignments  |  Ferry Loading III                        |
 | H02    | Assignments  |  Heapify Debacle                          |
 | H03    | Assignments  |  Data Structures and Complexity           |
 | P02    | Assignments  |  Processing in Linear Time                |
